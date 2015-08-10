@@ -9,6 +9,7 @@ class SessionsController < ApplicationController
       flash[:notice] = "You've successfully signed in!"
       redirect_to @user
     else
+      binding.pry
       flash.now[:notice] = "Unable to sign in, please try again."
       render :new
     end
