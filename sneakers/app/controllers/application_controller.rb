@@ -5,12 +5,12 @@ class ApplicationController < ActionController::Base
 
   def sign_in(user)
     session[:current_user_id] = user.id
-    @current_user = user
+    current_user = user
   end
 
   def sign_out
     session.delete(:current_user_id)
-    @current_user = nil
+    current_user = nil
     session[:current_user_id].nil? && current_user.nil?
   end
 
@@ -20,15 +20,19 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_user
 
+  def current_user=(user)
+    @current_user = user
+  end
+
   def signed_in_user?
-    !!@current_user
+    !!current_user
   end
   helper_method :signed_in_user?
 
   def require_login
     unless signed_in_user?
       flash[:notice] = "You must log in first."
-      redirect_to login_path
+      redirect_to new_user_path
     end
   end
 
