@@ -2,16 +2,14 @@ require 'rails_helper'
 
 describe ShoesController do
   context 'shoes happy path' do
-    it 'should not redirect to new shoe path if valid' do
+    it 'should not render new shoe template if valid' do
       new_user = create(:user)
-      new_shoe = build(:shoe, user: new_user)
       post :create, shoe: attributes_for(:shoe, user: new_user), user_id: new_user.id
-      expect(response).not_to redirect_to(new_user_shoe_path)
+      expect(response).not_to render_template(:new)
     end
 
     it 'should create a new shoe path if valid' do
       new_user = create(:user)
-      new_shoe = build(:shoe, user: new_user)
       expect do
         post :create, shoe: attributes_for(:shoe, user: new_user), user_id: new_user.id
       end.to change(Shoe, :count).by(1)
