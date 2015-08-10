@@ -10,6 +10,7 @@ class ShoesController < ApplicationController
       flash[:success] = "New shoes, my favorite!"
       redirect_to @shoe.user
     else
+      binding.pry
       flash.now[:error] = "You're probably missing something."
       render :new
     end
