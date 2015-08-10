@@ -8,7 +8,7 @@ describe ShoesController do
       expect(response).not_to render_template(:new)
     end
 
-    it 'should create a new shoe path if valid' do
+    it 'should create a new shoe if valid' do
       new_user = create(:user)
       expect do
         post :create, shoe: attributes_for(:shoe, user: new_user), user_id: new_user.id
@@ -23,9 +23,8 @@ describe ShoesController do
       expect(response).to render_template(:new)
     end
 
-    it 'should not create a new shoe path if invalid' do
+    it 'should not create a new shoe if invalid' do
       new_user = create(:user)
-      new_shoe = build(:shoe, user: new_user)
       expect do
         post :create, shoe: attributes_for(:shoe, user: new_user, brand: ""), user_id: new_user.id
       end.to change(Shoe, :count).by(0)
